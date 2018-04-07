@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include,path
-# from django.conf.urls import url  #新增
+from django.conf.urls import url,include  #新增
 #
 #
 # admin.autodiscover()
 from app123 import views
+
 # #
 # urlpatterns = [
 #     # path('^admin/', admin.site.urls),
@@ -30,5 +31,8 @@ from app123 import views
 urlpatterns = [
 
     path('app123/', include('app123.urls')),
+    # path('app123/',views.article_index),
+    # path('users/',views.login), #登录
+    # path('users/',include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
 ]

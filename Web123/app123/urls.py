@@ -8,6 +8,6 @@ from app123 import views
 
 urlpatterns = [
 
-     path('index/', views.Index, name = 'index'),
-     # path('login/', views.Login,name = 'login'),
+      # path('', views.Index, name = 'index'),
+       path('login/', views.login,name = 'login'),
 ]
