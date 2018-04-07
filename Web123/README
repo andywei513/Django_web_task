@@ -1,0 +1,53 @@
+#Instuctions on how to build website through Django
+#启动服务器：   python manage.py runserver
+#关闭服务器：   ctrl + c
+
+1.allow others in same web use this web
+  settings.py
+      ALLOWED_HOSTS = ['xxx.xxx.xxx.xxx'] (ipconfig to check your IP)
+  python manage.py runserver 0.0.0.0:8000
+
+2.logon admin system
+    python manage.py runserver
+    http://127.0.0.1:8000/admin
+
+3.create superuser
+    python manage.py createsuperuser
+
+4.active models
+   (1) settings.py 中，修改INSTALLED_APPS，引入要用到的Application
+   (2) 执行终端命令
+        python manage.py makemigrations
+        python manage.py migrate
+
+   (3) 将model添加到admin.py里
+       from .models import Article
+       admin.site.register(Article)
+
+
+
+5. 配置mysql数据库 settings.py
+   DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mydatabase',
+        'USER': 'mydatabaseuser',
+        'PASSWORD': 'mypassword',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+              }
+         }
+
+     默认设置：
+     DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+                }
+             }
+
+6.指定数据库驱动
+    django.db.backends.postgresql  # PostgreSQL
+    django.db.backends.mysql       # mysql
+    django.db.backends.sqlite3     # sqlite
+    django.db.backends.oracle      # oracle
