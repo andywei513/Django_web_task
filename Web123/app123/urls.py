@@ -8,6 +8,10 @@ from app123 import views
 
 urlpatterns = [
 
-      # path('', views.Index, name = 'index'),
+       path('', views.login, name = 'login'),
        path('login/', views.login,name = 'login'),
+       path('regist/',views.regist,name = 'regist'),
+       path('index/', views.index, name='index'),
+       path('logout/', views.logout, name='logout'),
+       # path('article_index/',views.article_index,name = 'article_index'),
 ]

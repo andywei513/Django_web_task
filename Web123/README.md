@@ -76,3 +76,7 @@
     fetchall()      获取结果集中的所有行
     rowcount()      返回数据条数或影响行数
     close()         关闭游标对象
+
+8.使用sqlite3
+   sqlite3 db.sqlite3
+   .quit 退出
