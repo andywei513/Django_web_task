@@ -34,6 +34,7 @@
 
   </head>
 
+
   <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -57,24 +58,61 @@
       </div>
     </nav>
 
-    <div class="container" style="margin-top: 50px;">
+    <!--<div class="container" style="margin-top: 50px;">-->
 
-      <div class="starter-template">
+      <!--<div class="starter-template">-->
 
-        <!--{% for article in article_list %}-->
-            <!--<h2>{{ article.title }}</h2>-->
-             <!--<p>{{ article.create_date }}</p>-->
-             <!--<p>{{ article.body }}</p>-->
-          <!--{% endfor %}-->
-        <h1>welcome {{username}} !</h1>
-        <br>
-        <a href="http://127.0.0.1:8000/app123/logout/">退出</a>
+        <!--&lt;!&ndash;{% for article in article_list %}&ndash;&gt;-->
+            <!--&lt;!&ndash;<h2>{{ article.title }}</h2>&ndash;&gt;-->
+             <!--&lt;!&ndash;<p>{{ article.create_date }}</p>&ndash;&gt;-->
+             <!--&lt;!&ndash;<p>{{ article.body }}</p>&ndash;&gt;-->
+          <!--&lt;!&ndash;{% endfor %}&ndash;&gt;-->
+        <!--<h1>welcome {{username}} !</h1>-->
+        <!---->
+           <!--</div>-->
 
-      </div>
+<div>
 
-    </div><!-- /.container -->
+        <a href="http://10.86.18.206:8000/app123/logout/">退出</a>
+
+</div>
+          <div id="chartmain" style="width:600px; height: 400px;"></div>
+
+
+
+    <!--</div>&lt;!&ndash; /.container &ndash;&gt;-->
 
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../static/js/echarts.js"></script>
   </body>
+
+
+ <script >
+        <!--//指定图标的配置和数据-->
+        var option = {
+            title:{
+                text:'ECharts 数据统计'
+            },
+            tooltip:{},
+            legend:{
+                data:['用户来源']
+            },
+            xAxis:{
+                data:["Android","IOS","PC","Ohter"]
+            },
+            yAxis:{
+
+            },
+            series:[{
+                name:'访问量',
+                type:'line',
+                data:[500,200,360,100]
+            }]
+        };
+        <!--//初始化echarts实例-->
+        var myChart = echarts.init(document.getElementById('chartmain'))
+        <!--//使用制定的配置项和数据显示图表-->
+        myChart.setOption(option);
+  </script>
 </html>
