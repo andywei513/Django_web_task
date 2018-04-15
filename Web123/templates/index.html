@@ -30,7 +30,7 @@
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="starter-template.css" rel="stylesheet">
+    <!--<link href="starter-template.css" rel="stylesheet">-->
 
   </head>
 
@@ -71,48 +71,202 @@
         <!---->
            <!--</div>-->
 
-<div>
 
-        <a href="http://127.0.0.1:8000/app123/logout/">退出</a>
 
-</div>
+
+    <br/>
           <div id="chartmain" style="width:600px; height: 400px;"></div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 
 
 
+
+
+
+
+
+    <div id="chartmain2" style="width:800px; height: 400px;"></div>
     <!--</div>&lt;!&ndash; /.container &ndash;&gt;-->
 
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="../static/js/echarts.js"></script>
-  </body>
+    <script src="/static/js/echarts.js"></script>
 
 
- <script >
+
+
+
+
+
+
+
+ <!--<script>-->
+
+ <!--var option = {-->
+    <!--xAxis: {-->
+        <!--type: 'category',-->
+        <!--data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']-->
+    <!--},-->
+    <!--yAxis: {-->
+        <!--type: 'value'-->
+    <!--},-->
+    <!--series: [{-->
+        <!--data: [820, 932, 901, 934, 1290, 1330, 1320],-->
+        <!--type: 'line'-->
+    <!--}]-->
+<!--};-->
+    <!--var myChart = echarts.init(document.getElementById('chartmain'))-->
+        <!--&lt;!&ndash;//使用制定的配置项和数据显示图表&ndash;&gt;-->
+        <!--myChart.setOption(option);-->
+
+
+   <!--</script>-->
+
+
+    <script>
+       var myChart = echarts.init(document.getElementById('chartmain2'))
+
+          <!--var chart = document.getElementById('chartmain2');-->
+          <!--var chartData = echarts.init(chart);-->
+
         <!--//指定图标的配置和数据-->
-        var option = {
-            title:{
-                text:'ECharts 数据统计'
-            },
-            tooltip:{},
-            legend:{
-                data:['用户来源']
-            },
-            xAxis:{
-                data:["Android","IOS","PC","Ohter"]
-            },
-            yAxis:{
+      var option = {
 
+         title: {
+        text: 'For test',
+        subtext: 'From ExcelHome',
+        x:'center'
+
+    },
+    toolbox: { //可视化的工具箱
+           show: true,
+           feature: {
+                    dataView: { //数据视图
+                        show: true
+                    },
+                    restore: { //重置
+                        show: true
+                    },
+                    dataZoom: { //数据缩放视图
+                        show: true
+                    },
+                    saveAsImage: {//保存图片
+                        show: true
+                    },
+                    magicType: {//动态类型切换
+                        type: ['bar', 'line']
+                    }
+                },
+            tooltip: { //弹窗组件
+                show: true
             },
-            series:[{
-                name:'访问量',
-                type:'line',
-                data:[500,200,360,100]
-            }]
-        };
-        <!--//初始化echarts实例-->
-        var myChart = echarts.init(document.getElementById('chartmain'))
+
+
+    },
+    xAxis: {
+        type: 'category',
+        data: []
+    },
+    yAxis: {
+        type: 'value'
+    },
+    dataZoom : {
+             show : true,
+             realtime : true,
+             start : 0,
+             end : 100
+         },
+
+
+
+
+    series: [{
+        data: [],
+        type: 'bar'
+    }]
+};
+
+
+   myChart.showLoading();
+
+
+  $.get('deliver/?data=1').done(function (data) {
+        <!--alert(data);-->
+        <!--var str = eval('(' + data + ') ')-->
+        <!--alert(status);-->
+        <!--return(data)-->
+	    <!--// 填入数据-->
+
+                       myChart.setOption({        //加载数据图表-->
+
+                        xAxis: {
+                            data: data.stockname
+                        },
+
+                        series: [{
+                            <!--// 根据名字对应到相应的系列-->
+                            <!--name: '销量',-->
+                            data: data.roe
+                            }]
+                        });
+                        })
+
+
+
+
+ myChart.hideLoading();    //隐藏加载动画-->
+
         <!--//使用制定的配置项和数据显示图表-->
         myChart.setOption(option);
-  </script>
+
+</script>
+  </body>
 </html>
+
+  <!--myChart.showLoading();    //数据加载完之前先显示一段简单的loading动画-->
+
+         <!--var names=[];    //类别数组（实际用来盛放X轴坐标值）-->
+         <!--var nums=[];    //销量数组（实际用来盛放Y坐标值）-->
+
+        <!--// 异步加载数据-->
+   <!--$.ajax({-->
+         <!--type : "post",-->
+         <!--async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）-->
+         <!--url : "deliver",    //请求发送到deliver处-->
+         <!--data : {},-->
+         <!--dataType : "json",        //返回数据形式为json-->
+         <!--success : function(result) {-->
+             <!--//请求成功时执行该函数内容，result即为服务器返回的json对象-->
+             <!--if (result) {-->
+                    <!--for(var i=0;i<result.length;i++){-->
+                       <!--names.push(result[i].key);    //挨个取出类别并填入类别数组-->
+                     <!--}-->
+                    <!--for(var i=0;i<result.length;i++){-->
+                        <!--nums.push(result[i].value);    //挨个取出销量并填入销量数组-->
+                      <!--}-->
+                    <!--myChart.hideLoading();    //隐藏加载动画-->
+                    <!--myChart.setOption({        //加载数据图表-->
+                        <!--xAxis: {-->
+                            <!--data: names-->
+                        <!--},-->
+                        <!--series: [{-->
+                            <!--// 根据名字对应到相应的系列-->
+                            <!--name: '销量',-->
+                            <!--data: nums-->
+                        <!--}]-->
+                    <!--});-->
+
+             <!--}-->
+
+        <!--&lt;!&ndash;},&ndash;&gt;-->
+         <!--&lt;!&ndash;error : function(errorMsg) {&ndash;&gt;-->
+             <!--&lt;!&ndash;//请求失败时执行该函数&ndash;&gt;-->
+         <!--&lt;!&ndash;alert("图表请求数据失败!");&ndash;&gt;-->
+         <!--&lt;!&ndash;myChart.hideLoading();&ndash;&gt;-->
+         <!--}-->
+    <!--&lt;!&ndash;})&ndash;&gt;-->
+   <!--{% csrf_token %}-->

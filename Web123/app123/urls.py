@@ -13,5 +13,6 @@ urlpatterns = [
        path('regist/',views.regist,name = 'regist'),
        path('index/', views.index, name='index'),
        path('logout/', views.logout, name='logout'),
+       path('index/deliver/',views.deliverdata,name = 'deliver')
        # path('article_index/',views.article_index,name = 'article_index'),
 ]

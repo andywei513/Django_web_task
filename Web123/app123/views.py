@@ -12,6 +12,9 @@ from django.contrib import auth
 from django.template import RequestContext
 from django import forms
 import time
+import sqlite3
+from django.http import JsonResponse
+import json
 #--------------------------
 
 # def Index(request):
@@ -84,3 +87,44 @@ def logout(request):
     response.delete_cookie('username')
     return response
 
+def dict_factory(cursor, row):
+  d = {}
+  for idx, col in enumerate(cursor.description):
+    d[col[0]] = row[idx]
+  return d
+
+def deliverdata(request):
+    if request.method == 'GET' and request.GET.get('data') == '1':
+        dictd = {}
+        con = sqlite3.connect('andy.db')
+        # con.row_factory = dict_factory
+        cur = con.cursor()
+        cur.execute('select stockname,roe from profit limit 20')
+        data = cur.fetchall()
+        # data = data[1:3]
+        con.commit()
+        con.close()
+        # return data
+        # data = {"stockname":["a","b","c"],"roe":[100,123,99]}
+        dt = {}
+        for (m, n) in data:
+            dt.setdefault(m, []).append(n)
+
+        stockname = []
+        roe = []
+        for i in dt.keys():
+            stockname.append(i)
+            roe.append(dt[i])
+        # roe =np.array(roe)
+        # roe2 = roe.tolist()
+
+        mb = []
+        for i in roe:
+            m = i[0]
+            mb.append(m)
+
+        dictd = {"stockname": stockname, "roe": mb}
+
+        return JsonResponse( dictd, safe=False, json_dumps_params={'ensure_ascii': False})
+        # return JsonResponse(data,safe=False)
+    return render(request,dictd)
